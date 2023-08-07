@@ -29,6 +29,7 @@ var projects = await GetProjects(PAT, orgName, DateTime.Now.AddMonths(-int.Parse
 //write out projects resuls to csv file
 var csv = new StringBuilder();
 csv.AppendLine("Project Name,URL");
+
 foreach (var project in projects)
 {
     csv.AppendLine($"{project.Name},{project.Url}");
@@ -39,11 +40,6 @@ csv.AppendLine(
 File.WriteAllText("projects.csv", csv.ToString());
 
 
-
-foreach (var project in projects)
-{
-    Console.WriteLine(project.Name);
-}
 
 
 //method to get all projects from azure devops
@@ -81,6 +77,9 @@ static async Task<List<TeamProjectReference>> GetProjects(string pat, string org
                 activeProjects.Add(project);
                 continue;
             }
+
+            //perhaps add test plans
+
         }
     }catch(Exception ex)
     {
