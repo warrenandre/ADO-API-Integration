@@ -10,8 +10,6 @@ using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
-using Microsoft.VisualStudio.Services.WebApi.Patch;
-using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
 var PAT = "";
 var orgName = "";
@@ -88,6 +86,7 @@ static async Task<List<TeamProjectReference>> GetProjects(string pat, string org
 
     return activeProjects;
 }
+
 
 //method to get project work items
 static async Task<bool> GetProjectWorkItems(string pat, string orgName, string projectname, DateTime dateTime)
