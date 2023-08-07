@@ -19,7 +19,7 @@ Console.WriteLine("Enter your PAT");
 PAT = Console.ReadLine();
 Console.WriteLine("Enter your Org Name");
 orgName = Console.ReadLine();
-Console.WriteLine("Show projects with updates older than x Months (eg 1,2,3)");
+Console.WriteLine("Show projects with updates later than x Months (eg 1,2,3)");
 olderThanXMonths = Console.ReadLine();
 
 var projects = await GetProjects(PAT, orgName, DateTime.Now.AddMonths(-int.Parse(olderThanXMonths)));
