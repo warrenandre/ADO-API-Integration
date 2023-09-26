@@ -86,12 +86,34 @@ static async Task<int> GetProjectTestPlans(string pat, string orgName, string pr
     var testPlanCount = 0;
     foreach (var testPlan in testRuns)
     {
-        //get last update date for test plan
+        //get last update date for test plan based on completed date
         if (testPlan.CompletedDate >= dateTime)
             testPlanCount++;
+
+        //additional dates to check test plans
+        // if(testPlan.StartedDate  >= dateTime) {
+        //     testPlanCount++;
+        // };
+        //  if(testPlan.LastUpdatedDate  >= dateTime) {
+        //     testPlanCount++;
+        // };
+        //  if(testPlan.DueDate  >= dateTime) {
+        //     testPlanCount++;
+        // };
+         
     }
     return testPlanCount;
 }
+
+
+//method to get all project test plans
+static async Task<int> GetTestRunsAsync(string pat, string orgName, string projectname)
+{
+    var testClient = await GetTestClient(pat, orgName);
+    var testRuns = await testClient.GetTestRunsAsync(projectname);
+    return testRuns.Count();
+}
+
 
 //method to get project work items
 static async Task<int> GetProjectWorkItems(string pat, string orgName, string projectname, DateTime dateTime)
@@ -101,6 +123,7 @@ static async Task<int> GetProjectWorkItems(string pat, string orgName, string pr
     string iso8601 = dateTime.ToString("MM/dd/yy");
     var wiql = new Wiql()
     {
+        //date options here are AcceptedDate, ChangedDate, CreatedDate, ResolvedDate, ActivatedDate, ClosedDate, RevisedDate
         Query = $"SELECT [System.Id] FROM WorkItems WHERE [System.TeamProject] = '{projectname}' AND [System.ChangedDate] > '{iso8601}' ORDER BY [System.ChangedDate] DESC"
  
     };
